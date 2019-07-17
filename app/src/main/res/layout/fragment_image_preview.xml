@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="@android:color/transparent"
+            android:id="@+id/image_view"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="@+id/cameraBottomView"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/app_name"/>
+    <View
+            android:id="@+id/cameraBottomView"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@color/black_50"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp" app:srcCompat="@drawable/ic_check"
+            android:id="@+id/save"
+            app:layout_constraintTop_toTopOf="@+id/cameraBottomView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/cameraBottomView" android:layout_marginStart="32dp"
+            android:background="@android:color/transparent" android:contentDescription="@string/app_name"/>
+    <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp" app:srcCompat="@drawable/ic_unchecked"
+            android:id="@+id/unsave"
+            app:layout_constraintEnd_toEndOf="@+id/cameraBottomView" android:layout_marginEnd="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cameraBottomView" android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

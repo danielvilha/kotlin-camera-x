@@ -1,14 +1,20 @@
 package com.danielvilha.kotlincamerax
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 
 /**
- * Created by danielvilha on 2019-07-08
+ * Created by danielvilha on 2019-15-08
  */
 class PermissionFragment : Fragment() {
 
@@ -18,6 +24,52 @@ class PermissionFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (isCameraPermissionGranted()) {
+            displayHomeFragment()
+        } else {
+            requestCameraPermission()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
+                displayHomeFragment()
+            } else {
+                displayErrorMessage()
+            }
+        }
+    }
+
+    private fun isCameraPermissionGranted(): Boolean {
+        val permission = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+        return permission == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestCameraPermission() {
+        requestPermissions(arrayOf(Manifest.permission.CAMERA),
+            CAMERA_REQUEST_CODE
+        )
+    }
+
+    private fun displayHomeFragment() {
+        val navOptions = NavOptions.Builder().setPopUpTo(R.id.permissionFragment, true).build()
+        Navigation.findNavController(requireActivity(), R.id.mainContent)
+            .navigate(R.id.homeFragment, null, navOptions)
+    }
+
+    private fun displayErrorMessage() {
+        Snackbar.make(
+            rootView,
+            "The camera permission must be granted in order to use this app",
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction("Retry") { requestCameraPermission() }
+            .show()
     }
 
     companion object {

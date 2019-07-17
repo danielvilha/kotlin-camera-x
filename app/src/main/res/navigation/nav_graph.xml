@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph" app:startDestination="@id/permissionFragment">
+            android:id="@+id/nav_graph" app:startDestination="@id/permissionFragment">
 
-    <fragment android:id="@+id/permissionFragment" android:name="androidx.fragment.app.Fragment"
+    <fragment android:id="@+id/permissionFragment" android:name="com.danielvilha.kotlincamerax.PermissionFragment"
               android:label="PermissionFragment"/>
+
+    <fragment android:id="@+id/homeFragment" android:name="com.danielvilha.kotlincamerax.HomeFragment"
+              android:label="HomeFragment"/>
+
+    <fragment android:id="@+id/cameraFragment" android:name="com.danielvilha.kotlincamerax.CameraFragment"
+              android:label="CameraFragment"/>
+    <fragment android:id="@+id/imagePreviewFragment" android:name="com.danielvilha.kotlincamerax.ImagePreviewFragment"
+              android:label="ImagePreviewFragment"/>
 </navigation>
