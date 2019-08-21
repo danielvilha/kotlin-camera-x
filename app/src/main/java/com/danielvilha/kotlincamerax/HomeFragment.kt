@@ -53,10 +53,13 @@ class HomeFragment : Fragment() {
     private fun getImages(root: File) {
         val files = root.listFiles()
 
-        if (files != null && files.isNotEmpty()) {
-            adapter.add(ImageAdapter(files))
-            Log.d(TAG, "Image files: $files")
+        for (f in files) {
+            adapter.add(ImageAdapter(f))
+            Log.d(TAG, "Image file: $f")
         }
+        // if (files != null && files.isNotEmpty()) {
+            
+        // }
     }
 
     companion object {
@@ -66,12 +69,12 @@ class HomeFragment : Fragment() {
 }
 
 
-class ImageAdapter(private val items: Array<File>): Item<ViewHolder>() {
+class ImageAdapter(private val item: File): Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
 //        viewHolder.itemView.image.setImageURI(items[position].parentFile.toUri())
 
-        Picasso.get().load(items[position].parentFile.toUri()).into(viewHolder.itemView.image_view)
+        Picasso.get().load(item.parentFile.toUri()).into(viewHolder.itemView.image_view)
     }
 
     override fun getLayout(): Int {
