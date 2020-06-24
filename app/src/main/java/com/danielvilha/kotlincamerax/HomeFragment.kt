@@ -50,16 +50,15 @@ class HomeFragment : Fragment() {
             .navigate(R.id.cameraFragment, null, navOptions)
     }
 
-    private fun getImages(root: File) {
-        val files = root.listFiles()
+    private fun getImages(root: File?) {
+        val files = root?.listFiles()
 
-        for (f in files) {
-            adapter.add(ImageAdapter(f))
-            Log.d(TAG, "Image file: $f")
+        if (!files.isNullOrEmpty()) {
+            for (f in files) {
+                adapter.add(ImageAdapter(f))
+                Log.d(TAG, "Image file: $f")
+            }
         }
-        // if (files != null && files.isNotEmpty()) {
-            
-        // }
     }
 
     companion object {
@@ -72,8 +71,6 @@ class HomeFragment : Fragment() {
 class ImageAdapter(private val item: File): Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-//        viewHolder.itemView.image.setImageURI(items[position].parentFile.toUri())
-
         Picasso.get().load(item.parentFile.toUri()).into(viewHolder.itemView.image_view)
     }
 
